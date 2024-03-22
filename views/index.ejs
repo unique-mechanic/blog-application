@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+<%- include("./partials/header.ejs") %>
+
+
+<form action="/submit" method="POST">
+<div class="container">
+    <div class="mb-3">
+        <label for="fName" class="form-label">First name</label>
+        <input type="text" class="form-control" id="fName" name="fName" placeholder="Enter your first name">
+    </div>
+    <div class="mb-3">
+        <label for="lName" class="form-label">Last name</label>
+        <input type="text" class="form-control" id="lName" name="lName" placeholder="Enter your last name">
+    </div>
+    <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="title" name="title" placeholder="Enter the title">
+    </div>
+    <div class="mb-3">
+        <label for="blogContent" class="form-label">Content</label>
+        <textarea class="form-control" id="blogContent" name="blogContent" rows="3" placeholder="Enter the content"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary mb-3">Submit</button>
+</div>
+</form>
+
+<% if (locals.blogArray && locals.blogArray.length > 0){ %>
+    <!--
+    <div class="container table-responsive">-->
+    <div class="container" style="max-height: 400px; overflow-y: auto;">    
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col" class="text-nowrap">Created on</th>
+                    <th scope="col" class="text-nowrap">First Name</th>
+                    <th scope="col" class="text-nowrap">Last Name</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Blog</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% blogArray.forEach(entry => { %>
+                    <tr>
+                        <td><%= entry[4] %></td> <!-- Display date created -->
+                        <td ><%= entry[0] %></td>
+                        <td><%= entry[1] %></td>
+                        <td><a href="/blogs/<%= encodeURIComponent(entry[2]) %>"><%= entry[2] %></a></td>
+                        <td><%= entry[3] %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+    <h1><% console.log(locals.blogArray) %></h1>
+<% } else { %>
+    <div class="container">
+    <p>No blog entries yet.</p>
+    </div>
+<% } %>
+
+
+
+<%- include("./partials/footer.ejs") %>
+
+</body>
+</html>
+
+

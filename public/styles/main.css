@@ -1,0 +1,13 @@
+#footer{
+    position: fixed;
+    bottom:0;
+    width: 100%;
+    background-color: #f8f9fa; /* Adjust background color as needed */
+    height: 125px;
+}
+
+@media (max-width: 768px) {
+    #footer {
+        height: 80px; /* Adjust height for smaller screens */
+    }
+}

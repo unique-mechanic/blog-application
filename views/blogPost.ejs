@@ -1,0 +1,29 @@
+<!-- blogPost.ejs -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include("./partials/header.ejs") %>
+
+<body>
+    <div class="container">
+        <h1>Blog Details</h1>
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="card-title"><%= blogPost[2] %></h5> <!-- Title -->
+                <p class="card-text">Written by <%= blogPost[0] %> <%= blogPost[1] %></p> <!-- Author -->
+                <p class="card-text">Date Created: <%= blogPost[4] %></p> <!-- Date Created -->
+            </div>
+            <div class="card-body">
+                <p class="card-text"><%= blogPost[3] %></p> <!-- Content -->
+            </div>
+        </div>
+    </div>
+</body>
+
+
+<%- include("./partials/footer.ejs") %>
+
+</html>
+
