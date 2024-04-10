@@ -4,13 +4,18 @@
     margin-left: 5px;
 }
 
+.table-container {
+    max-height: 400px; /* Adjust the maximum height as needed */
+    overflow-y: auto;
+    display: block;
+}
 
 #footer{
-    position: fixed;
+    position: relative;
     bottom:0;
     width: 100%;
     background-color: #f8f9fa; /* Adjust background color as needed */
-    height: 125px;
+    height: 100px;
 }
 
 @media (max-width: 768px) {

@@ -27,7 +27,7 @@
 </div>
 </form>
 
-<% if (locals.blogArray && locals.blogArray.length > 0){ %>
+<% if (locals.blogData && locals.blogData.length > 0){ %>
     <!--
     <div class="container table-responsive">-->
     <div class="container" style="max-height: 400px; overflow-y: auto;">    
@@ -42,19 +42,19 @@
                 </tr>
             </thead>
             <tbody>
-                <% blogArray.forEach(entry => { %>
+                <% blogData.forEach(entry => { %>
                     <tr>
-                        <td><%= entry[4] %></td> <!-- Display date created -->
-                        <td ><%= entry[0] %></td>
-                        <td><%= entry[1] %></td>
-                        <td><a href="/blogs/<%= encodeURIComponent(entry[2]) %>"><%= entry[2] %></a></td>
-                        <td><%= entry[3] %></td>
+                        <td><%= entry.dateCreated %></td> <!-- Display date created -->
+                        <td ><%= entry.firstName %></td>
+                        <td><%= entry.lastName %></td>
+                        <td><a href="/blogs/<%= encodeURIComponent(entry.title) %>"><%= entry.title %></a></td>
+                        <td><%= entry.blogContent %></td>
                     </tr>
                 <% }); %>
             </tbody>
         </table>
     </div>
-    <h1><% console.log(locals.blogArray) %></h1>
+    <h1><% console.log(blogData.length) %></h1>
 <% } else { %>
     <div class="container">
     <p>No blog entries yet.</p>

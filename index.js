@@ -30,7 +30,7 @@ try {
 }
 
 app.get("/", (req, res) => {
-    res.render("index.ejs", {blogArray});
+    res.render("index.ejs", {blogData: blogData});
   });
 
 app.get("/about", (req, res) => {
@@ -50,8 +50,8 @@ app.post("/submit", (req, res) => {
     if((firstName) && (lastName)){
         blogArray.push([firstName,lastName,title, blogContent, dateCreated] );
     }
-    res.render("draftBlog.ejs", {blogArray});
 
+    
     //creating Entry in JSON
     const newEntry = {
         firstName: req.body.fName,
@@ -64,16 +64,17 @@ app.post("/submit", (req, res) => {
       // Add new entry to blogData
       blogData.push(newEntry);
     
-      // Write updated data back to JSON file
+      //Write updated data back to JSON file
       fs.writeFile('blogData.json', JSON.stringify(blogData, null, 2), (err) => {
         if (err) {
           console.error('Error writing blog data to file:', err);
           return res.status(500).send('Internal Server Error');
         }
         console.log('Blog data written to file successfully');
-        res.redirect('/');
+       //res.redirect('/');
+       
       });
-    
+      res.render("index.ejs", {blogData: blogData});
 });
 
 // Example route handler to handle blog post links
@@ -81,6 +82,7 @@ app.get("/blogs/:title", (req, res) => {
     const title = req.params.title;
     // Find the corresponding blog post based on the title
     const blogPost = blogArray.find(entry => entry[2] === title);
+    //console.log(blogPost);
     if (blogPost) {
         // Render a view specific to the blog post
         res.render("blogPost.ejs", {blogPost, blogArray});
