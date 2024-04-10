@@ -81,11 +81,11 @@ app.post("/submit", (req, res) => {
 app.get("/blogs/:title", (req, res) => {
     const title = req.params.title;
     // Find the corresponding blog post based on the title
-    const blogPost = blogArray.find(entry => entry[2] === title);
+    const blogPost = blogData.find(entry => entry.title === title);
     //console.log(blogPost);
     if (blogPost) {
         // Render a view specific to the blog post
-        res.render("blogPost.ejs", {blogPost, blogArray});
+        res.render("blogPost.ejs", {blogPost, blogData: blogData});
     } else {
         // Handle the case when the blog post is not found
         res.status(404).send("Blog post not found");

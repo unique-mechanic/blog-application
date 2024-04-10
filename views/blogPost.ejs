@@ -11,12 +11,12 @@
         <h1>Blog Details</h1>
         <div class="card mt-4">
             <div class="card-header">
-                <h5 class="card-title"><%= blogPost[2] %></h5> <!-- Title -->
-                <p class="card-text">Written by <%= blogPost[0] %> <%= blogPost[1] %></p> <!-- Author -->
-                <p class="card-text">Date Created: <%= blogPost[4] %></p> <!-- Date Created -->
+                <h5 class="card-title"><%= blogPost.title %></h5> <!-- Title -->
+                <p class="card-text">Written by <%= blogPost.firstName %> <%= blogPost.lastName %></p> <!-- Author -->
+                <p class="card-text">Date Created: <%= blogPost.dateCreated %></p> <!-- Date Created -->
             </div>
             <div class="card-body">
-                <p class="card-text"><%= blogPost[3] %></p> <!-- Content -->
+                <p class="card-text"><%= blogPost.blogContent %></p> <!-- Content -->
             </div>
         </div>
     </div>
