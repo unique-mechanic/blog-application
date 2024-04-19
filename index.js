@@ -37,8 +37,12 @@ app.get("/about", (req, res) => {
     res.render("about.ejs");
 });
 
+app.get("/draft", (req, res) => {
+  res.render("draftBlog.ejs",{blogData: blogData});
+});
 
 app.post("/submit", (req, res) => {
+  //------------------------------------------------------------
     var firstName = req.body.fName;
     var lastName = req.body.lName;
     var title = req.body.title;
@@ -50,7 +54,7 @@ app.post("/submit", (req, res) => {
     if((firstName) && (lastName)){
         blogArray.push([firstName,lastName,title, blogContent, dateCreated] );
     }
-
+  //----------------------------------------------------------------
     
     //creating Entry in JSON
     const newEntry = {
@@ -71,10 +75,11 @@ app.post("/submit", (req, res) => {
           return res.status(500).send('Internal Server Error');
         }
         console.log('Blog data written to file successfully');
-       //res.redirect('/');
-       
       });
-      res.render("index.ejs", {blogData: blogData});
+      const successMessage = "Your Blog has been submitted!";
+
+      res.render("draftBlog.ejs", {successMessage: successMessage});
+;
 });
 
 // Example route handler to handle blog post links
@@ -92,8 +97,31 @@ app.get("/blogs/:title", (req, res) => {
     }
 });
 
-app.get("/draft", (req, res) => {
-    res.render("draftBlog.ejs", {blogArray});
+
+
+app.post('/delete/:id', (req, res) => {
+  const id = req.params.id; // Get the ID from the request parameters
+  console.log(id);
+  // Find the index of the entry with the specified ID in the JSON data array
+  const index = blogData.findIndex(entry => entry.title === id);
+
+  if (index !== -1) {
+    // If the entry is found, remove it from the JSON data array
+    blogData.splice(index, 1);
+
+    // Write the updated data back to the JSON file
+    fs.writeFile('blogData.json', JSON.stringify(blogData, null, 2), (err) => {
+      if (err) {
+        console.error('Error writing blog data to file:', err);
+        return res.status(500).send('Internal Server Error');
+      }
+      console.log('Entry deleted successfully');
+      res.redirect('/'); // Redirect back to the homepage or wherever appropriate
+    });
+  } else {
+    // If the entry is not found, return a 404 status
+    res.status(404).send('Entry not found');
+  }
 });
 
 

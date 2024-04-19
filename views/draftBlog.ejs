@@ -27,42 +27,44 @@
 </div>
 </form>
 
-<% if (locals.blogArray && locals.blogArray.length > 0){ %>
-    <!--
-    <div class="container table-responsive">-->
-    <div class="container" style="max-height: 400px; overflow-y: auto;">    
+<% if (locals.successMessage){%>
+<div id="successMessage">
+    <p><%= successMessage %></p>
+</div>
+<% } %>
+
+<div class="container">
+    <div class="table-container">
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col" class="text-nowrap">Created on</th>
-                    <th scope="col" class="text-nowrap">First Name</th>
-                    <th scope="col" class="text-nowrap">Last Name</th>
+                    <th scope="col">Created on</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
                     <th scope="col">Title</th>
                     <th scope="col">Blog</th>
+                    <!--<th scope="col">Actions</th> -->
                 </tr>
             </thead>
             <tbody>
-                <% blogArray.forEach(entry => { %>
+                <% blogData.forEach(entry => { %>
                     <tr>
-                        <td><%= entry[4] %></td> <!-- Display date created -->
-                        <td ><%= entry[0] %></td>
-                        <td><%= entry[1] %></td>
-                        <td><a href="/blogs/<%= encodeURIComponent(entry[2]) %>"><%= entry[2] %></a></td>
-                        <td><%= entry[3] %></td>
+                        <td><%= entry.dateCreated %></td>
+                        <td><%= entry.firstName %></td>
+                        <td><%= entry.lastName %></td>
+                        <td><a href="/blogs/<%= encodeURIComponent(entry.title) %>"><%= entry.title %></a></td>
+                        <td><%= entry.blogContent %></td>
+                        <td>
+                            <form action="/delete/<%= entry.title %>" method="POST">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
                     </tr>
                 <% }); %>
             </tbody>
         </table>
     </div>
-    <h1><% console.log(locals.blogArray) %></h1>
-<% } else { %>
-    <div class="container">
-    <p>No blog entries yet.</p>
-    </div>
-<% } %>
-
-
-
+</div>
 <%- include("./partials/footer.ejs") %>
 
 </body>
